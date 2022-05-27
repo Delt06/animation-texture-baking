@@ -1,0 +1,1 @@
+#define TOON_SHADER_HOOK_APP_DATA uint id : SV_VertexID;

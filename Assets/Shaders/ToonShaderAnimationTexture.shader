@@ -141,7 +141,13 @@
             #define TOON_ADDITIONAL_LIGHTS_SPECULAR
             #endif
 
-            #include "./ToonShaderAnimationTexture.hlsl"
+            #include "./ToonShaderHookAppData.hlsl"
+            #include "Packages/com.deltation.toon-shader/Assets/DELTation/ToonShader/Shaders/ToonShaderForwardPass_AppData.hlsl"
+            #include "./ToonShaderHookInputBuffer.hlsl"
+            #include "Packages/com.deltation.toon-shader/Assets/DELTation/ToonShader/Shaders/ToonShaderInput.hlsl"
+            
+            #define ANIMATION_TEXTURE_READ_TANGENTS
+            #include "./ToonShaderHookVertexInput.hlsl"
             
             #include "Packages/com.deltation.toon-shader/Assets/DELTation/ToonShader/Shaders/ToonShaderInput.hlsl"
             #include "Packages/com.deltation.toon-shader/Assets/DELTation/ToonShader/Shaders/ToonShaderForwardPass_AppData.hlsl"
@@ -169,6 +175,13 @@
             #pragma fragment ShadowPassFragment
 
             #pragma multi_compile_instancing
+
+            #include "./ToonShaderHookAppData.hlsl"
+            #include "Packages/com.deltation.toon-shader/Assets/DELTation/ToonShader/Shaders/ToonShaderShadowCasterPass_AppData.hlsl"
+            #include "./ToonShaderHookInputBuffer.hlsl"
+            #include "Packages/com.deltation.toon-shader/Assets/DELTation/ToonShader/Shaders/ToonShaderInput.hlsl"
+            
+            #include "./ToonShaderHookVertexInput.hlsl"
 
             #include "Packages/com.deltation.toon-shader/Assets/DELTation/ToonShader/Shaders/ToonShaderInput.hlsl"
             #include "Packages/com.deltation.toon-shader/Assets/DELTation/ToonShader/Shaders/ToonShaderShadowCasterPass.hlsl"

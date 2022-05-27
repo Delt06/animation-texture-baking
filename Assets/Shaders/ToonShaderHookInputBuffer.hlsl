@@ -1,0 +1,1 @@
+#define TOON_SHADER_HOOK_INPUT_BUFFER TEXTURE2D(_AnimationTexture); SAMPLER(sampler_AnimationTexture); float4 _AnimationTexture_TexelSize; float _FrameRate;
