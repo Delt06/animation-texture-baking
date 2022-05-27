@@ -217,6 +217,8 @@
 
             #pragma shader_feature_local_fragment _ALPHATEST_ON
 
+            #include "./ToonShaderHookInputBuffer.hlsl"
+            
             #include "Packages/com.deltation.toon-shader/Assets/DELTation/ToonShader/Shaders/ToonShaderInput.hlsl"
             #include "Packages/com.deltation.toon-shader/Assets/DELTation/ToonShader/Shaders/ToonShaderMetaPass.hlsl"
 
@@ -242,7 +244,8 @@
             #pragma fragment DepthOnlyFragment
 
             #pragma multi_compile_instancing
-           
+
+            #include "./ToonShaderHookInputBuffer.hlsl"
 
             #include "Packages/com.deltation.toon-shader/Assets/DELTation/ToonShader/Shaders/ToonShaderInput.hlsl"
             #include "Packages/com.deltation.toon-shader/Assets/DELTation/ToonShader/Shaders/ToonShaderDepthOnlyPass.hlsl"
@@ -267,6 +270,8 @@
             #pragma fragment DepthNormalsFragment
 
             #pragma multi_compile_instancing
+
+            #include "./ToonShaderHookInputBuffer.hlsl"
 
             #include "Packages/com.deltation.toon-shader/Assets/DELTation/ToonShader/Shaders/ToonShaderInput.hlsl"
             #include "Packages/com.deltation.toon-shader/Assets/DELTation/ToonShader/Shaders/ToonShaderDepthNormalsPass.hlsl"
