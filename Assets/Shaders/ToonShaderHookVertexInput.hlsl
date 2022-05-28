@@ -1,9 +1,12 @@
-﻿void ApplyAnimationTexture(inout appdata input)
+﻿#include "Packages/com.deltation.toon-shader/Assets/DELTation/ToonShader/Shaders/ToonShaderInstancing.hlsl"
+
+void ApplyAnimationTexture(inout appdata input)
 {
     float4 texel_size = _AnimationTexture_TexelSize;
     float frame_count = texel_size.z;
     float duration = frame_count / _FrameRate;
-    float normalized_time = (_Time.y / duration) % 1;
+    float animation_time = TOON_SHADER_ACCESS_INSTANCED_PROP(_AnimationTime);
+    float normalized_time = animation_time / duration % 1;
 
     uint vertex_id = input.id;
     float position_v = (vertex_id * 3 + 0.5) * texel_size.y;
