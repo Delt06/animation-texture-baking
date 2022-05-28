@@ -147,6 +147,7 @@
             #include "Packages/com.deltation.toon-shader/Assets/DELTation/ToonShader/Shaders/ToonShaderInput.hlsl"
             
             #define ANIMATION_TEXTURE_READ_TANGENTS
+            #define ANIMATION_TEXTURE_READ_NORMALS
             #include "./ToonShaderHookVertexInput.hlsl"
             
             #include "Packages/com.deltation.toon-shader/Assets/DELTation/ToonShader/Shaders/ToonShaderInput.hlsl"
@@ -245,7 +246,12 @@
 
             #pragma multi_compile_instancing
 
+            #include "./ToonShaderHookAppData.hlsl"
+            #include "Packages/com.deltation.toon-shader/Assets/DELTation/ToonShader/Shaders/ToonShaderDepthOnlyPass_AppData.hlsl"
             #include "./ToonShaderHookInputBuffer.hlsl"
+            #include "Packages/com.deltation.toon-shader/Assets/DELTation/ToonShader/Shaders/ToonShaderInput.hlsl"
+
+            #include "./ToonShaderHookVertexInput.hlsl"
 
             #include "Packages/com.deltation.toon-shader/Assets/DELTation/ToonShader/Shaders/ToonShaderInput.hlsl"
             #include "Packages/com.deltation.toon-shader/Assets/DELTation/ToonShader/Shaders/ToonShaderDepthOnlyPass.hlsl"
@@ -271,7 +277,14 @@
 
             #pragma multi_compile_instancing
 
+            #include "./ToonShaderHookAppData.hlsl"
+            #include "Packages/com.deltation.toon-shader/Assets/DELTation/ToonShader/Shaders/ToonShaderDepthNormalsPass_AppData.hlsl"
             #include "./ToonShaderHookInputBuffer.hlsl"
+            #include "Packages/com.deltation.toon-shader/Assets/DELTation/ToonShader/Shaders/ToonShaderInput.hlsl"
+
+            #define ANIMATION_TEXTURE_READ_TANGENTS
+            #define ANIMATION_TEXTURE_READ_NORMALS
+            #include "./ToonShaderHookVertexInput.hlsl"
 
             #include "Packages/com.deltation.toon-shader/Assets/DELTation/ToonShader/Shaders/ToonShaderInput.hlsl"
             #include "Packages/com.deltation.toon-shader/Assets/DELTation/ToonShader/Shaders/ToonShaderDepthNormalsPass.hlsl"

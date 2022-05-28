@@ -10,9 +10,11 @@
     float2 position_uv = float2(normalized_time, position_v);
     input.positionOS = SAMPLE_TEXTURE2D_LOD(_AnimationTexture, sampler_AnimationTexture, position_uv, 0);
 
+    #ifdef ANIMATION_TEXTURE_READ_NORMALS
     float normal_v = (vertex_id * 3 + 1.5) * texel_size.y;
     float2 normal_uv = float2(normalized_time, normal_v);
     input.normalOS = SAMPLE_TEXTURE2D_LOD(_AnimationTexture, sampler_AnimationTexture, normal_uv, 0).xyz;
+    #endif
 
     #ifdef ANIMATION_TEXTURE_READ_TANGENTS
     float tangent_v = (vertex_id * 3 + 2.5) * texel_size.y;
