@@ -2,6 +2,7 @@
 {
     Properties
     {
+        [NoScaleOffset]
         _AnimationTexture ("Texture", 2D) = "black" {}
         _FrameRate ("Frame Rate", Range(1, 60)) = 24
         [MainTexture]
