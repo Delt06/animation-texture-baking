@@ -1,4 +1,7 @@
-﻿using UnityEditor;
+﻿using System;
+using System.Linq;
+using UnityEditor;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -6,9 +9,9 @@ namespace Editor
 {
     public class AnimationToTexture : EditorWindow
     {
-        private const int LayerIndex = 0;
         private static int _frameRate = 24;
         private Animator _animator;
+        private int _layerIndex;
         private string _stateName;
 
         private void OnEnable()
@@ -19,7 +22,22 @@ namespace Editor
         private void OnGUI()
         {
             _frameRate = Mathf.Clamp(EditorGUILayout.IntField("Framerate", _frameRate), 1, 60);
-            _stateName = EditorGUILayout.TextField("State Name", _stateName);
+
+            if (_animator.runtimeAnimatorController is AnimatorController animatorController)
+            {
+                var layers = animatorController.layers;
+                var layerNames = layers.Select(l => l.name).ToArray();
+                _layerIndex = EditorGUILayout.Popup("Layer", _layerIndex >= 0 ? _layerIndex : 0, layerNames);
+
+                if (_layerIndex >= 0 && _layerIndex < layers.Length)
+                {
+                    var stateNames = layers[_layerIndex].stateMachine.states.Select(s => s.state.name).ToArray();
+                    var currentIndex = Array.IndexOf(stateNames, _stateName);
+                    if (currentIndex < 0)
+                        currentIndex = 0;
+                    _stateName = stateNames[EditorGUILayout.Popup("State", currentIndex, stateNames)];
+                }
+            }
 
             if (GUILayout.Button("Bake"))
                 CreateAnimationTexture();
@@ -43,9 +61,9 @@ namespace Editor
             var skinnedMeshRenderer = _animator.GetComponentInChildren<SkinnedMeshRenderer>();
             Assert.IsNotNull(skinnedMeshRenderer, "No SkinnedMeshRenderer found");
 
-            _animator.Play(_stateName, LayerIndex, 0);
+            _animator.Play(_stateName, _layerIndex, 0);
             _animator.Update(0);
-            var animatorStateInfo = _animator.GetCurrentAnimatorStateInfo(LayerIndex);
+            var animatorStateInfo = _animator.GetCurrentAnimatorStateInfo(_layerIndex);
 
             var duration = animatorStateInfo.length;
             var frameCount = (int) (duration * _frameRate);
@@ -76,7 +94,7 @@ namespace Editor
             for (var frameIndex = 0; frameIndex < frameCount; frameIndex++)
             {
                 var normalizedTime = (float) frameIndex / lastFrameIndex;
-                animator.Play(_stateName, LayerIndex, normalizedTime);
+                animator.Play(_stateName, _layerIndex, normalizedTime);
                 animator.Update(0f);
                 skinnedMeshRenderer.BakeMesh(mesh);
 
